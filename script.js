@@ -1246,11 +1246,11 @@ if (typeof window.defaultResponsiveData === 'undefined') window.defaultResponsiv
 
 resizeData['object777328212'] = {
    responsive: [
-                  { left: 0.99, top: 0.61, visible: true }, 
-                  { left: 0.99, top: 0.61, visible: true }, 
-                  { left: 0.99, top: 0.61, visible: true }, 
-                  { left: 0.99, top: 0.61, visible: true }, 
-                  { left: 0.99, top: 0.61, visible: true }, 
+                  { left: 0.98, top: 0.59, visible: true }, 
+                  { left: 0.98, top: 0.59, visible: true }, 
+                  { left: 0.98, top: 0.59, visible: true }, 
+                  { left: 0.98, top: 0.59, visible: true }, 
+                  { left: 0.98, top: 0.59, visible: true }, 
                ],
    area: {
        x: 0,
@@ -1262,11 +1262,11 @@ resizeData['object777328212'] = {
 
 resizeData['headline'] = {
    responsive: [
-                  { left: 0.14, top: 0.69, visible: true }, 
-                  { left: 0.14, top: 0.69, visible: true }, 
-                  { left: 0.14, top: 0.69, visible: true }, 
-                  { left: 0.14, top: 0.69, visible: true }, 
-                  { left: 0.14, top: 0.69, visible: true }, 
+                  { left: 0.14, top: 0.58, visible: true }, 
+                  { left: 0.14, top: 0.58, visible: true }, 
+                  { left: 0.14, top: 0.58, visible: true }, 
+                  { left: 0.14, top: 0.58, visible: true }, 
+                  { left: 0.14, top: 0.58, visible: true }, 
                ],
    area: {
        x: 0,
