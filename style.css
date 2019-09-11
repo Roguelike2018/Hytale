@@ -2322,47 +2322,6 @@ blockquote p,
    margin: 0;
 }
 
-.art-postfootericons,
-.art-postfootericons a,
-.art-postfootericons a:link,
-.art-postfootericons a:visited,
-.art-postfootericons a:hover
-{
-   font-size: 11px;
-   font-family: Tahoma, Arial, Helvetica, Sans-Serif;
-   letter-spacing: 1px;
-   color: #655C43;
-}
-
-.art-postfootericons
-{
-   padding: 1px;
-}
-
-.art-postfootericons a, .art-postfootericons a:link
-{
-   font-family: Tahoma, Arial, Helvetica, Sans-Serif;
-   text-decoration: none;
-   letter-spacing: 1px;
-   color: #6B6247;
-}
-
-.art-postfootericons a:visited, .art-postfootericons a.visited
-{
-   font-family: Tahoma, Arial, Helvetica, Sans-Serif;
-   text-decoration: none;
-   letter-spacing: 1px;
-   color: #6B6247;
-}
-
-.art-postfootericons a:hover, .art-postfootericons a.hover
-{
-   font-family: Tahoma, Arial, Helvetica, Sans-Serif;
-   text-decoration: underline;
-   letter-spacing: 1px;
-   color: #372301;
-}
-
 .Sorter img
 {
    border:0;

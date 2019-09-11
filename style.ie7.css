@@ -117,9 +117,6 @@ form.art-search
    height: 1%;
 }
 
-.art-postfootericons span{
-   zoom: 1;
-}
 .close-alt, .arrow-right-alt, .arrow-left-alt {
    display: block !important;
 }
