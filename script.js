@@ -1246,27 +1246,27 @@ if (typeof window.defaultResponsiveData === 'undefined') window.defaultResponsiv
 
 resizeData['object777328212'] = {
    responsive: [
-                  { left: 0.98, top: 0.59, visible: true }, 
-                  { left: 0.98, top: 0.59, visible: true }, 
-                  { left: 0.98, top: 0.59, visible: true }, 
-                  { left: 0.98, top: 0.59, visible: true }, 
-                  { left: 0.98, top: 0.59, visible: true }, 
+                  { left: 0.45, top: 0.32, visible: true }, 
+                  { left: 0.45, top: 0.32, visible: true }, 
+                  { left: 0.45, top: 0.32, visible: true }, 
+                  { left: 0.45, top: 0.32, visible: true }, 
+                  { left: 0.45, top: 0.32, visible: true }, 
                ],
    area: {
        x: 0,
        y: 0
    },
-   width: 305,
-   height: 165,
+   width: 226,
+   height: 122,
    autoWidth: false};
 
 resizeData['headline'] = {
    responsive: [
-                  { left: 0.14, top: 0.58, visible: true }, 
-                  { left: 0.14, top: 0.58, visible: true }, 
-                  { left: 0.14, top: 0.58, visible: true }, 
-                  { left: 0.14, top: 0.58, visible: true }, 
-                  { left: 0.14, top: 0.58, visible: true }, 
+                  { left: 0.43, top: 0.94, visible: true }, 
+                  { left: 0.43, top: 0.94, visible: true }, 
+                  { left: 0.43, top: 0.94, visible: true }, 
+                  { left: 0.43, top: 0.94, visible: true }, 
+                  { left: 0.43, top: 0.94, visible: true }, 
                ],
    area: {
        x: 0,
@@ -1275,22 +1275,6 @@ resizeData['headline'] = {
    width: 402,
    height: 38,
    autoWidth: true};
-
-resizeData['object1019753401'] = {
-   responsive: [
-                  { left: 0.2, top: 0.13, visible: true }, 
-                  { left: 0.2, top: 0.13, visible: true }, 
-                  { left: 0.2, top: 0.13, visible: true }, 
-                  { left: 0.2, top: 0.13, visible: true }, 
-                  { left: 0.2, top: 0.13, visible: true }, 
-               ],
-   area: {
-       x: 0,
-       y: 0
-   },
-   width: 225,
-   height: 34,
-   autoWidth: false};
 
 // used to apply compicated values in style like '!important!
 function applyCss(object, param, value) {
