@@ -2204,23 +2204,6 @@ pre
    color: #FAA819;
 }
 
-.art-postdateicon:before
-{
-   content:url('images/postdateicon.png');
-   margin-right:6px;
-   position:relative;
-   display:inline-block;
-   vertical-align:middle;
-   font-size:0;
-   line-height:0;
-   bottom: auto;
-}
-.opera .art-postdateicon:before
-{
-   /* Vertical-align:middle in Opera doesn't need additional offset */
-    bottom: 0;
-}
-
 .art-postauthoricon:before
 {
    content:url('images/postauthoricon.png');
@@ -2233,74 +2216,6 @@ pre
    bottom: auto;
 }
 .opera .art-postauthoricon:before
-{
-   /* Vertical-align:middle in Opera doesn't need additional offset */
-    bottom: 0;
-}
-
-.art-postpdficon:before
-{
-   content:url('images/postpdficon.png');
-   margin-right:6px;
-   position:relative;
-   display:inline-block;
-   vertical-align:middle;
-   font-size:0;
-   line-height:0;
-   bottom: auto;
-}
-.opera .art-postpdficon:before
-{
-   /* Vertical-align:middle in Opera doesn't need additional offset */
-    bottom: 0;
-}
-
-.art-postprinticon:before
-{
-   content:url('images/postprinticon.png');
-   margin-right:6px;
-   position:relative;
-   display:inline-block;
-   vertical-align:middle;
-   font-size:0;
-   line-height:0;
-   bottom: auto;
-}
-.opera .art-postprinticon:before
-{
-   /* Vertical-align:middle in Opera doesn't need additional offset */
-    bottom: 0;
-}
-
-.art-postemailicon:before
-{
-   content:url('images/postemailicon.png');
-   margin-right:6px;
-   position:relative;
-   display:inline-block;
-   vertical-align:middle;
-   font-size:0;
-   line-height:0;
-   bottom: auto;
-}
-.opera .art-postemailicon:before
-{
-   /* Vertical-align:middle in Opera doesn't need additional offset */
-    bottom: 0;
-}
-
-.art-postediticon:before
-{
-   content:url('images/postediticon.png');
-   margin-right:6px;
-   position:relative;
-   display:inline-block;
-   vertical-align:middle;
-   font-size:0;
-   line-height:0;
-   bottom: auto;
-}
-.opera .art-postediticon:before
 {
    /* Vertical-align:middle in Opera doesn't need additional offset */
     bottom: 0;
@@ -2405,6 +2320,47 @@ blockquote p,
 .art-footer blockquote p
 {
    margin: 0;
+}
+
+.art-postfootericons,
+.art-postfootericons a,
+.art-postfootericons a:link,
+.art-postfootericons a:visited,
+.art-postfootericons a:hover
+{
+   font-size: 11px;
+   font-family: Tahoma, Arial, Helvetica, Sans-Serif;
+   letter-spacing: 1px;
+   color: #655C43;
+}
+
+.art-postfootericons
+{
+   padding: 1px;
+}
+
+.art-postfootericons a, .art-postfootericons a:link
+{
+   font-family: Tahoma, Arial, Helvetica, Sans-Serif;
+   text-decoration: none;
+   letter-spacing: 1px;
+   color: #6B6247;
+}
+
+.art-postfootericons a:visited, .art-postfootericons a.visited
+{
+   font-family: Tahoma, Arial, Helvetica, Sans-Serif;
+   text-decoration: none;
+   letter-spacing: 1px;
+   color: #6B6247;
+}
+
+.art-postfootericons a:hover, .art-postfootericons a.hover
+{
+   font-family: Tahoma, Arial, Helvetica, Sans-Serif;
+   text-decoration: underline;
+   letter-spacing: 1px;
+   color: #372301;
 }
 
 .Sorter img
