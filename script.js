@@ -1140,7 +1140,7 @@ jQuery(function ($) {
     }
     var header = $(".art-header");
     var bgimages = "url('images/object1377362040.png'), ".split(",");
-    var bgpositions = "722px 66px, ".split(",");
+    var bgpositions = "360px 70px, ".split(",");
     for (var i = 0; i < bgimages.length; i++) {
         var bgimage = $.trim(bgimages[i]);
         if (bgimage === "")
