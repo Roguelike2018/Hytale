@@ -514,12 +514,6 @@ var menuExtendedCreate = (function ($) {
         var sheet = $(".art-sheet");
         var sheetLeft = sheet.offset().left;
         var sheetWidth = sheet.width();
-        // reset
-        $("#art-menu-style").remove();
-
-        var styleStr = "";
-        $("<style id=\"art-menu-style\"></style>").appendTo('head');
-        var style = document.styleSheets[document.styleSheets.length - 1];
 
         $(".art-hmenu>li").each(function(i, v) {
             var itm = $(this);
@@ -536,21 +530,21 @@ var menuExtendedCreate = (function ($) {
             var lw = 0, rw = 0;
         
             if (typeof subm.attr("data-ext-l") !== "undefined" && typeof subm.attr("data-ext-r") !== "undefined") {
-                lw = parseInt(subm.attr("data-ext-l"), 10) + 3;
-                rw = parseInt(subm.attr("data-ext-r"), 10) + 3;
+                lw = parseInt(subm.attr("data-ext-l"), 10) + 0;
+                rw = parseInt(subm.attr("data-ext-r"), 10) + 0;
                 itm.addClass("ext-r").addClass("ext-l");
             } else {
                 var ltr = !subm.hasClass("art-hmenu-right-to-left");
                 itm.addClass(ltr ? "ext-r" : "ext-l");
             }
 
-            var shadow = 3;
+            var shadow = 0;
             if (subm.length > 0) {
                 var lnk = itm.children("a");
                 var lnkWidth = lnk.outerWidth(false);
                 itm.css("width", Math.round(parseFloat(lnkWidth, 10)) + "px");
-                var menubarMargin = 5 * 2; // margin * 2 sides
-                var menubarBorder = 0 * 2; // border 1 side
+                var menubarMargin = 4 * 2; // margin * 2 sides
+                var menubarBorder = 1 * 2; // border 1 side
                 var submWidth = subm.width() + shadow + menubarMargin + menubarBorder;
                 var w = submWidth - lnkWidth;
                 $("<div class=\"ext-m\"></div>").insertBefore(lnk);
@@ -567,16 +561,6 @@ var menuExtendedCreate = (function ($) {
                 $("<div class=\"ext-l\" style=\"width: " + (lw > 0 ? lw : Math.round(parseFloat(w, 10))) + "px;\"></div>").insertBefore(lnk);
                 $("<div class=\"ext-r\" style=\"width: " + (rw > 0 ? rw : Math.round(parseFloat(w, 10))) + "px;\"></div>").insertBefore(lnk);
                 itm.addClass("ext");
-                if (style !== null && typeof style.insertRule !== "undefined") {
-                    var cls = "art-hmenu-item-" + i;
-                    var selector = ".desktop ul.art-hmenu>li." + cls + ":hover>ul:before";
-                    var r = submWidth;
-                    var b = subm.height() + (shadow * 2) + menubarBorder + menubarMargin;
-                    var rule = "clip: rect(8px, " + Math.round(parseFloat(r, 10)) + "px, " + Math.round(parseFloat(b, 10)) + "px, -" + shadow + "px);";
-                    itm.addClass(cls);
-                    var rulesLen = typeof style.cssRules === "undefined" || style.cssRules === null ? 0 : style.cssRules.length;
-                    style.insertRule(selector + '{' + rule + '}', rulesLen);
-                }
             }
         });
     };

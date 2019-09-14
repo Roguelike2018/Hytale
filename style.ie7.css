@@ -39,7 +39,7 @@ ul.art-hmenu, ul.art-hmenu ul {
 }
 
 ul.art-hmenu>li:first-child {
-   padding-right:13px;
+   padding-right:7px;
 }
 ul.art-hmenu>li{
    zoom:expression(runtimeStyle.zoom=1,insertBefore(document.createElement('span'),firstChild).className='art-hmenu-separator');
@@ -49,9 +49,9 @@ ul.art-hmenu>li>span.art-hmenu-separator
    position:absolute;
    display: block;
    top:0;
-   left:  -13px;
-   width: 13px;
-   height: 44px;
+   left:  -7px;
+   width: 7px;
+   height: 38px;
    background: url('images/menuseparator.png') center center no-repeat;
 }
 ul.art-hmenu>li:first-child>span.art-hmenu-separator
@@ -60,7 +60,7 @@ ul.art-hmenu>li:first-child>span.art-hmenu-separator
 }
 
 ul.art-hmenu ul, .desktop-nav ul.art-hmenu>li.ext:hover>a{
-   background-color: #776D50 !important;
+   background-color: rgba(119, 109, 80, 0.9) !important;
 }
 
 .art-content-layout, .art-content-layout-row, .art-layout-cell 
