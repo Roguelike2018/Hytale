@@ -1,4 +1,4 @@
-/* Created by Artisteer v4.3.0.60858 */
+/* Created by Artisteer v4.0.0.58475 */
 /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, curly:false, browser:true, jquery:false */
 /*global jQuery */
 
@@ -7,134 +7,53 @@ var responsiveDesign = {
     isDesktop: false,
     isTablet: false,
     isPhone: false,
-    lockedResponsiveMode: '', // free mode from start
-
-    responsiveType: 'desktop',
-    responsiveTypeIdx: 1,
-    lockedResponsiveType: '',
-
-    isCurrentDefaultResponsive: false,
-
-    defaultResponsive: [ false, true, true, true, true ], // turn on/off old or new responsive modes
-
     windowWidth: 0,
+    responsive: function () {
+        'use strict';
+        var html = jQuery("html");
+        this.windowWidth = jQuery(window).width();
+        var triggerEvent = false;
 
-    responsive: (function ($) {
-        "use strict";
-        return function () {
-            var html = $("html");
-            this.windowWidth = $(window).width();
-            var triggerEvent = false;
+        var isRespVisible = jQuery("#art-resp").is(":visible");
+        if (isRespVisible && !this.isResponsive) {
+            html.addClass("responsive").removeClass("desktop");
+            this.isResponsive = true;
+            this.isDesktop = false;
+            triggerEvent = true;
+        } else if (!isRespVisible && !this.isDesktop) {
+            html.addClass("desktop").removeClass("responsive responsive-tablet responsive-phone");
+            this.isResponsive = this.isTablet = this.isPhone = false;
+            this.isDesktop = true;
+            triggerEvent = true;
+        }
 
-            var isRespVisible = $("#art-resp").is(":visible");
-            if (this.lockedResponsiveMode === 'desktop') isRespVisible = false;
-
-            if (isRespVisible && !this.isResponsive) {
-                html.addClass("responsive").removeClass("desktop");
-                this.isResponsive = true;
-                this.isDesktop = false;
+        if (this.isResponsive) {
+            if (jQuery("#art-resp-t").is(":visible") && !this.isTablet) {
+                html.addClass("responsive-tablet").removeClass("responsive-phone");
+                this.isTablet = true;
+                this.isPhone = false;
                 triggerEvent = true;
-            } else if (!isRespVisible && !this.isDesktop) {
-                html.addClass("desktop").removeClass("responsive default-responsive responsive-tablet responsive-phone");
-                this.isResponsive = this.isTablet = this.isPhone = false;
-                this.isDesktop = true;
+            } else if (jQuery("#art-resp-m").is(":visible") && !this.isPhone) {
+                html.addClass("responsive-phone").removeClass("responsive-tablet");
+                this.isTablet = false;
+                this.isPhone = true;
                 triggerEvent = true;
             }
+        }
 
-            if (this.isResponsive) {
-                // additional check to lock responsive mode
-                var isTablet = this.lockedResponsiveMode === 'tablet' || ($("#art-resp-t").is(":visible") && this.lockedResponsiveMode === '');
-                var isPhone = this.lockedResponsiveMode === 'phone' || ($("#art-resp-m").is(":visible") && this.lockedResponsiveMode === '');
-                if (isTablet && !this.isTablet) {
-                    html.addClass("responsive-tablet").removeClass("responsive-phone");
-                    this.isTablet = true;
-                    this.isPhone = false;
-                    triggerEvent = true;
-                } else if (isPhone && !this.isPhone) {
-                    html.addClass("responsive-phone").removeClass("responsive-tablet");
-                    this.isTablet = false;
-                    this.isPhone = true;
-                    triggerEvent = true;
-                }
-            }
+        if (triggerEvent) {
+            jQuery(window).trigger("responsive", this);
+        }
 
-            var prevResponsiveIndx = this.responsiveTypeIdx;
-            if (this.lockedResponsiveType === 'tabletlandscape' || ($("#art-resp-tablet-landscape").is(":visible") && this.lockedResponsiveType === '')) {
-                this.responsiveType = 'tabletlandscape';
-                this.responsiveTypeIdx = 1;
-            } else if (this.lockedResponsiveType === 'tabletportrait' || ($("#art-resp-tablet-portrait").is(":visible") && this.lockedResponsiveType === '')) {
-                this.responsiveType = 'tabletportrait';
-                this.responsiveTypeIdx = 2;
-            } else if (this.lockedResponsiveType === 'phonelandscape' || ($("#art-resp-phone-landscape").is(":visible") && this.lockedResponsiveType === '')) {
-                this.responsiveType = 'phonelandscape';
-                this.responsiveTypeIdx = 3;
-            } else if (this.lockedResponsiveType === 'phoneportrait' || ($("#art-resp-phone-portrait").is(":visible") && this.lockedResponsiveType === '')) {
-                this.responsiveType = 'phoneportrait';
-                this.responsiveTypeIdx = 4;
-            } else { //if (this.lockedResponsiveType === 'desktop' || ($("#art-resp-desktop").is(":visible") && this.lockedResponsiveType === '')) {
-                this.responsiveType = 'desktop';
-                this.responsiveTypeIdx = 0;
-            }
-
-            if (triggerEvent || prevResponsiveIndx !== this.responsiveTypeIdx) {
-                triggerEvent = true;
-                
-                if (this.isResponsive && this.defaultResponsive[ this.responsiveTypeIdx ]) {
-                    this.isCurrentDefaultResponsive = true;
-                    html.removeClass('custom-responsive').addClass('default-responsive');
-                } else {
-                    this.isCurrentDefaultResponsive = false;
-                    html.removeClass('default-responsive').addClass('custom-responsive');
-                }
-            }
-
-            if (triggerEvent) {
-                $(window).trigger("responsive", this);
-            }
-
-            $(window).trigger("responsiveResize", this);
-        };
-    })(jQuery),
-    initialize: (function ($) {
-        "use strict";
-        return function () {
-            // get correct defaultResponsive
-            if (typeof defaultResponsiveData !== 'undefined') responsiveDesign.defaultResponsive = defaultResponsiveData;
-
-            $("<div id=\"art-resp\"><div id=\"art-resp-m\"></div><div id=\"art-resp-t\"></div></div>").appendTo("body");
-            $('<div id="art-resp-tablet-landscape" /><div id="art-resp-tablet-portrait" /><div id="art-resp-phone-landscape" /><div id="art-resp-phone-portrait" />').appendTo('body');
-
-
-            /* (1) Use this code for debug instead of (2):
-             * var resizeTimeout;
-             * $(window).resize(function () {
-             * clearTimeout(resizeTimeout);
-             * resizeTimeout = setTimeout(function () { responsiveDesign.responsive(); }, 50);
-             * });
-             */
-
-            /* (2) Use this code for production and comment (1): */
-            $(window).resize(function () {
-                responsiveDesign.responsive();
-            });
-
-            $(window).trigger("resize");
-        };
-    })(jQuery),
-    // lock responsive in some mode: desktop, tablet or phone for editor
-    lockResponsiveType: function (mode) {
-        responsiveDesign.lockedResponsiveType = mode;
-
-        if (mode.indexOf('tablet') === 0) mode = 'tablet';
-        if (mode.indexOf('phone') === 0) mode = 'phone';
-
-        responsiveDesign.lockedResponsiveMode = mode;
+        jQuery(window).trigger("responsiveResize", this);
     },
-    // using in editor to turn off default responsive
-    toogleDefaultResponsive: function (type, val) {
-        var old = responsiveDesign.defaultResponsive[ type ];
-        responsiveDesign.defaultResponsive[ type ] = val;
-        if (old !== val) responsiveDesign.responsiveTypeIdx = -1;
+    initialize: function () {
+        "use strict";
+        jQuery("<div id=\"art-resp\"><div id=\"art-resp-m\"></div><div id=\"art-resp-t\"></div></div>").appendTo("body");
+        jQuery(window).resize(function () {
+            responsiveDesign.responsive();
+        });
+        jQuery(window).trigger("resize");
     }
 };
 
@@ -164,342 +83,275 @@ function responsiveAbsBg(responsiveDesign, el, bg) {
     }
 }
 
-var responsiveImages = (function ($) {
-    "use strict";
-    return function (responsiveDesign) {
-        $("img[width]").each(function () {
-            var img = $(this), newWidth = "", newMaxWidth = "", newHeight = "";
-            if (responsiveDesign.isResponsive) {
-                newWidth = "auto";
-                newHeight = "auto";
-                newMaxWidth = "100%";
-
-                var widthAttr = img.attr("width");
-                if (widthAttr !== null && typeof (widthAttr) === "string" && widthAttr.indexOf("%") === -1) {
-                    newWidth = "100%";
-                    newMaxWidth = parseInt($.trim(widthAttr), 10) + "px";
-                }
-            }
-            img.css("width", newWidth).css("max-width", newMaxWidth).css("height", newHeight);
-        });
-    };
-})(jQuery); 
-
-var responsiveVideos = (function ($) {
-    "use strict";
-    return function (responsiveDesign) {
-        $("iframe[width],object[width],embed[width]").each(function () {
-            var obj = $(this);
-            if ((obj.is('[width]') && obj.attr("width").indexOf("%") !== -1) ||
-                (obj.is('[class]') && obj.attr("class").indexOf("twitter") !== -1) ||
-                (obj.id && obj.id.indexOf("google") !== -1))
-                return;
-            var container = obj.parent(".art-responsive-embed");
-            if (responsiveDesign.isResponsive) {
-                if (container.length !== 0)
-                    return;
-                container = $("<div class=\"art-responsive-embed\">").insertBefore(obj);
-                obj.appendTo(container);
-            } else if (container.length > 0) {
-                obj.insertBefore(container);
-                container.remove();
-            }
-        });
-    };
-})(jQuery);
-
-// this must be called for collages only!
-var responsiveTextblocks = (function ($) {
-    "use strict";
-    return function (slider, responsiveDesign) {
-        slider.find(".art-textblock").each(function () {
-            if (parseInt(slider.attr("data-width"), 10) === 0) {
-                return true;
-            }
-            var tb = $(this);
-            var c = slider.width() / slider.attr("data-width");
-            tb.css({
-                "height": "",
-                "width": "",
-                "top": "",
-                "margin-left": ""
-            });
-            if (responsiveDesign.isResponsive) {
-                var tbHeight = parseInt(tb.css("height"), 10);
-                var tbWidth = parseInt(tb.css("width"), 10);
-                var tbTop = parseInt(tb.css("top"), 10);
-                var tbMargin = parseInt(tb.css("margin-left"), 10);
-                tb.add(tb.find('div')).css({
-                    "height": tbHeight * c,
-                    "width": tbWidth * c
-                });
-                tb.css("top", tbTop * c);
-                tb.attr("style", function (i, s) { return s + "margin-left: " + (tbMargin * c) + "px !important"; });
-            }
-        });
-    };
-})(jQuery);
-
-var responsiveSlider = (function ($) {
-    "use strict";
-    return function (responsiveDesign) {
-        $(".art-slider").each(function () {
-            var s = $(this);
-
-            var isHeaderSlider = s.parent('.art-header').length > 0 || s.parent('.art-pageslider').length > 0;
-            if (!isHeaderSlider && responsiveDesign.isResponsive) {
-                responsiveTextblocks(s, responsiveDesign);
-                return;
-            }
-
-            var initialWidth = s.attr("data-width");
-            var initialHeight = s.attr("data-height");
-
-            // set size
-
-            var obj = s.data("slider");
-            if (!obj) {
-                return false;
-            }
-
-            var inner = s.find(".art-slider-inner");
-
-            if (!responsiveDesign.isResponsive && obj.settings.helper) {
-                obj.settings.helper.updateSize(inner, { width: initialWidth, height: initialHeight });
-                return;
-            }
-
-            // set slider
-            if (obj && obj.settings.helper) {
-                $(window).on("responsiveResize", function updateSize() {
-                    if (obj.settings.animation === "fade") return;
-                    if (responsiveDesign.isCurrentDefaultResponsive) {
-                        obj.settings.helper.updateSize(inner, { width: initialWidth, height: initialHeight });
-                        $.each(inner.children(), function () {
-                            $(this).css(
-                                "background-position",
-                                -Math.floor(initialWidth / 2 - parseInt(inner.outerWidth(), 10) / 2) + "px" +
-                                -Math.floor(initialHeight / 2 - parseInt(inner.outerHeight(), 10) / 2) + "px "
-                            );
-                        });
-                    } else {
-                        $(window).off("responsiveResize", updateSize);
-                    }
-                });
-            }
-        });
-    };
-})(jQuery);
-
-var responsiveCollages = (function ($) {
-    "use strict";
-    return function (responsiveDesign) {
-        $(".art-collage").each(function() {
-            var collage = $(this);
-            var slider = collage.find(".art-slider");
-
-            var initialWidth = slider.attr("data-width");
-            var initialHeight = slider.attr("data-height");
-
-            var parent = collage.closest(':not(.image-caption-wrapper, .art-collage)');
-            var parentIcw = collage.closest('.image-caption-wrapper');
-            var parentWidth = parent.width();
-            var collageWidth = collage.width();
-
-            // for responsive try to make collage smaller
-            // a) no icw - check collage width and parent
-            // b) with icw - collage is bigger than icw
-            var doms = collage
-                .add(slider)
-                .add(collage.closest(".image-caption-wrapper"));
-
-            // so try to make collage smaller
-            if (responsiveDesign.isResponsive && collageWidth > parentWidth || (parentIcw.length > 0 && collageWidth > parentIcw.width())) {
-                doms.css("width", "100%");
-            }
-
-            // but if icw make collage too bit reset it width to noraml
-            collageWidth = collage.width();
-            if (collageWidth > initialWidth) {
-                doms.css("width", "");
-            }
-
-            var c = slider.width() / initialWidth;
-            var h = c * initialHeight;
-            slider.css("height", h + "px");
-        });
-    };
-})(jQuery);
-
-
-jQuery(window).bind("responsive", (function ($) {
-    "use strict";
-    return function (event, responsiveDesign) {
-        // so this event is main and it generate sub events to make important changes before we will modify slider
-        // for example we move out of slider menu button, and it change slider size
-        $(window).trigger('responsivePage', responsiveDesign);
-        responsiveImages(responsiveDesign);
-        responsiveVideos(responsiveDesign);
-
-        responsiveSlider(responsiveDesign);
-        responsiveNavigator(responsiveDesign);
-    };
-})(jQuery));
-
-jQuery(window).bind("responsiveResize", (function ($) {
-    "use strict";
-    return function (event, responsiveDesign) {
-        responsiveCollages(responsiveDesign);
-        responsiveNavigator(responsiveDesign);
-    };
-})(jQuery));
-
-jQuery(function ($) {
-    if (!browser.ie || browser.version > 8) return;
-    var timeout;
-    $(window).on("resize", function () {
-        clearTimeout(timeout);
-        timeout = setTimeout(function() {
-            responsiveCollages(responsiveDesign);
-            responsiveNavigator(responsiveDesign);
-        }, 25);
-    });
+jQuery(window).bind("responsive", function (event, responsiveDesign) {
+    'use strict';
     responsiveCollages(responsiveDesign);
-    responsiveNavigator(responsiveDesign);
+    responsiveImages(responsiveDesign);
+    responsiveVideos(responsiveDesign);
 });
 
-var responsiveHeader = (function ($) {
-    "use strict";
-    return function(responsiveDesign) {
-        var header = $("header.art-header");
-        var headerSlider = header.find(".art-slider");
+function responsiveImages(responsiveDesign) {
+    'use strict';
+    jQuery("img[width]").each(function () {
+        var img = jQuery(this), newWidth = "", newMaxWidth = "", newHeight = "";
+        if (responsiveDesign.isResponsive) {
+            newWidth = "auto";
+            newHeight = "auto";
+            newMaxWidth = "100%";
 
-        if (headerSlider.length) {
-            var firstSlide = headerSlider.find(".art-slide-item").first();
-            var slidebg = firstSlide.css("background-image").split(",");
-            var previousSibling = headerSlider.prev();
-            var sliderNav = headerSlider.siblings(".art-slidenavigator");
-            if (slidebg.length && responsiveDesign.isResponsive) {
-                // if prev is menu in header
-                if (previousSibling.is("nav.art-nav")) {
-                    sliderNav.attr("data-offset", previousSibling.height());
-                }
-            } else {
-                sliderNav.removeAttr("data-offset");
-                header.removeAttr("style");
-            }
+            var widthAttr = img.attr("width");
+            if (widthAttr !== null && typeof(widthAttr) === "string" && widthAttr.indexOf("%") === -1) {
+                newWidth = "100%";
+                newMaxWidth = parseInt(jQuery.trim(widthAttr), 10) + "px";
+            } 
         }
-    };
-})(jQuery);
+        img.css("width", newWidth).css("max-width", newMaxWidth).css("height", newHeight);
+    });
+}
 
-jQuery(window).bind("responsiveResize", (function ($) {
-    "use strict";
-    return function (event, responsiveDesign) {
-        responsiveAbsBg(responsiveDesign, $(".art-header"), $("#art-header-bg"));
-    };
-})(jQuery));
-
-jQuery(window).bind("responsive", (function ($) {
-    "use strict";
-    return function (event, responsiveDesign) {
-        if (browser.ie && browser.version <= 8) return;
+function responsiveCollages(responsiveDesign) {
+    'use strict';
+    if (jQuery.browser.msie && jQuery.browser.version <= 8) return;
+    jQuery(".art-collage").each(function () {
+        var collage = jQuery(this);
+        var sliderObject = collage.find(".art-slider").data("slider");
+        var responsiveImage = jQuery("img#" + collage.attr("id"));
 
         if (responsiveDesign.isResponsive) {
-            $(window).on("responsiveResize.header", function () {
-                responsiveHeader(responsiveDesign);
-            });
-        } else {
-            $(window).trigger("responsiveResize.header");
-            $(window).off("responsiveResize.header");
-        }
-    };
-})(jQuery));
-
-jQuery(window).bind("responsiveResize", (function ($) {
-    "use strict";
-    return function (event, responsiveDesign) {
-        responsiveAbsBg(responsiveDesign, $("nav.art-nav"), $("#art-hmenu-bg"));
-        $(window).trigger("responsiveNav", { responsiveDesign: responsiveDesign });
-    };
-})(jQuery));
-
-
-
-
-
-
-jQuery(function($) {
-    $('<a href=\"#\" class=\"art-menu-btn\"><span></span><span></span><span></span></a>').insertBefore(".art-hmenu").click(function(e) {
-        var menu = $(this).next();
-        if (menu.is(":visible")) {
-            menu.slideUp("fast", function() {
-                $(this).removeClass("visible").css("display", "");
-            });
-        } else {
-            menu.slideDown("fast", function() {
-                $(this).addClass("visible").css("display", "");
-            });
-        }
-        e.preventDefault();
-    });
-});
-
-jQuery(window).bind("responsiveNav", (function ($) {
-    /*global menuExtendedCreate */
-    "use strict";
-    return function (event, options) {
-        if (options.responsiveDesign.isDesktop && $("li.ext").length > 0) {
-            menuExtendedCreate();
-        }
-    };
-})(jQuery));
-
-var responsiveLayoutCell = (function ($) {
-    "use strict";
-    return function (responsiveDesign) {
-        $(".art-content .art-content-layout-row,.art-footer .art-content-layout-row").each(function () {
-            var row = $(this);
-            var rowChildren = row.children(".art-layout-cell");
-            if (rowChildren.length > 0) {
-                var c;
-                row.removeClass("responsive-layout-row-2").removeClass("responsive-layout-row-3").removeClass("responsive-layout-row-1");
-                if (rowChildren.length === 1) {
-                    c = 1;
-                    row.addClass("responsive-layout-row-1");
-                } else if (rowChildren.length % 2 === 0) {
-                    var c = 2;
-                    row.addClass("responsive-layout-row-2");
-                } else {
-                    var c = 3;
-                    row.addClass("responsive-layout-row-3");
-                }
-                if (c > 0 && responsiveDesign.isTablet) {
-                    rowChildren.addClass("responsive-tablet-layout-cell").each(function (i) {
-                        if ((i + 1) % c === 0) {
-                            $(this).after("<div class=\"cleared responsive-cleared\">");
-                        }
-                    });
-                } else {
-                    rowChildren.removeClass("responsive-tablet-layout-cell");
-                    row.children(".responsive-cleared").remove();
+            if (responsiveImage.length) { return true; }
+            if (jQuery.support.transition) {
+                collage.find(".art-slider").trigger(jQuery.support.transition.event);
+            }
+            if (sliderObject) {
+                sliderObject.stop();
+            }
+            var activeSlide = collage.find(".art-slide-item.active");
+            if (!activeSlide.length) {
+                var slides = collage.find(".art-slide-item");
+                if (slides.length) {
+                    activeSlide = jQuery(slides.get(0));
                 }
             }
+            activeSlide.css("background-image", "");
+            var bg = activeSlide.css("background-image").replace(/url\(['"]?(.+?)['"]?\)/i, "$1");
+            jQuery("<img>").attr({
+                "src": bg,
+                "id": collage.attr("id")
+            }).insertBefore(collage);
+        } else if (responsiveImage.length) {
+            responsiveImage.remove();
+            if (sliderObject) {
+                if (sliderObject.settings.animation !== "fade") {
+                    collage.find(".art-slide-item").css("background-image", "none");
+                }
+                sliderObject.start();
+            }
+        }
+    });
+}
+
+function responsiveVideos(responsiveDesign) {
+    "use strict";
+    jQuery("iframe,object,embed").each(function () {
+        var obj = jQuery(this);
+        var container = obj.parent(".art-responsive-embed");
+        if (responsiveDesign.isResponsive) {
+            if (container.length !== 0)
+                return;
+            container = jQuery("<div class=\"art-responsive-embed\">").insertBefore(obj);
+            obj.appendTo(container);
+        } else if (container.length > 0) {
+            obj.insertBefore(container);
+            container.remove();
+        }
+    });
+}
+
+jQuery(window).bind("responsiveResize", function (event, responsiveDesign) {
+    "use strict";
+    responsiveAbsBg(responsiveDesign, jQuery(".art-header"), jQuery("#art-header-bg"));
+});
+jQuery(window).bind("responsive", function (event, responsiveDesign) {
+    "use strict";
+    if (jQuery.browser.msie && jQuery.browser.version <= 8) return;
+    responsiveHeader(responsiveDesign);
+});
+
+function responsiveHeader(responsiveDesign) {
+    "use strict";
+    var header = jQuery("header.art-header");
+    var headerShapes = header.find(".art-shapes");
+    var headerSlider = header.find(".art-slider");
+    
+    if (headerSlider.length) {
+        var sliderObject = headerSlider.data("slider");
+        
+        var activeSlide = headerSlider.find(".art-slide-item.active");
+        if (!activeSlide.length) {
+            var slides = headerSlider.find(".art-slide-item");
+            if (slides.length) {
+                 activeSlide = jQuery(slides.get(0));
+            }
+        }
+
+        var textblock = headerSlider.find(".art-textblock").eq(0);
+
+        if (responsiveDesign.isResponsive) {
+            if (header.attr("data-responsive")) return true;
+            activeSlide.css("background-image", "");
+            header.attr("data-responsive", "true");
+            headerSlider.fadeOut(0);
+            if (jQuery.support.transition) {
+                headerSlider.trigger(jQuery.support.transition.event);
+            }
+            if (sliderObject) {
+                sliderObject.stop();
+            }
+            if (header.find(".art-slogan, .art-headline").length === 0) {
+                var tb = textblock.clone();
+                tb.css("display", "block");
+                tb.children("div").css("display", "block");
+                tb.appendTo(headerShapes);
+            }
+            // activeslide background
+            var bg = activeSlide.css("background-image").split(/\s*,\s*/);
+            header.css("background-image", bg[bg.length - 1]);
+        } else if (header.attr("data-responsive")) {
+            header.removeAttr("data-responsive");
+            header.css("background-image", "");
+            if (sliderObject) {
+                if (sliderObject.settings.animation !== "fade") {
+                    headerSlider.find(".art-slide-item").css("background-image", "none");
+                }
+                headerShapes.find(".art-textblock").remove();
+                headerSlider.fadeIn(0);
+                sliderObject.start();
+            }
+        }
+    } else if (header.find(".art-slogan, .art-headline").length === 0) {
+        header.find(".art-textblock").each(function () {
+            jQuery(this).add(jQuery(this).children("div")).css("display", responsiveDesign.isResponsive ? "inline-block" : "");
+            return false; // break
         });
-    };
-})(jQuery);
+        jQuery(window).trigger("resize");
+    }
+}
+
+jQuery(window).bind("responsiveResize", function (event, responsiveDesign) {
+    "use strict";
+    responsiveAbsBg(responsiveDesign, jQuery("nav.art-nav"), jQuery("#art-hmenu-bg"));
+    responsiveNavFit(responsiveDesign);
+});
+
+function responsiveNavFit(responsiveDesign) {
+    'use strict';
+    var nav = jQuery("nav.art-nav");
+    var isDesktopNav = true;
+    var isResponsiveNav = false;
+    if (responsiveDesign.isResponsive) {
+        if (!nav.hasClass("responsive-nav")) {
+            var itemsWidth = 0;
+            var menu = nav.find(".art-hmenu");
+            menu.children("li").each(function() {
+                itemsWidth += jQuery(this).outerWidth(true);
+            });
+            
+            if (menu.width() < itemsWidth || responsiveDesign.isPhone) {
+                nav.attr("data-restore-width", responsiveDesign.windowWidth).addClass("responsive-nav").removeClass("desktop-nav");
+                isResponsiveNav = true;
+                isDesktopNav = false;
+            }
+        } else {
+            var desktopRestoreWidth = parseInt(nav.attr("data-restore-width"), 10) || 0;
+            if (desktopRestoreWidth !== 0 && responsiveDesign.windowWidth <= desktopRestoreWidth) {
+                isResponsiveNav = true;
+                isDesktopNav = false;
+            }
+        }
+    } 
+
+    if (isDesktopNav) {
+        nav.removeClass("responsive-nav").addClass("desktop-nav").removeAttr("data-restore-width");
+    }
+
+    jQuery(window).trigger("responsiveNav", {isDesktopNav: isDesktopNav, isResponsiveNav: isResponsiveNav});
+}
+
+jQuery(window).bind("responsive", function (event, responsiveDesign) {
+    'use strict';
+    responsiveNav(responsiveDesign);
+});
+
+function responsiveNav(responsiveDesign) {
+    'use strict';
+    var nav = jQuery("nav.art-nav"), header, headerMarginTop;
+    if (responsiveDesign.isResponsive && nav.parents(".art-header").length > 0) {
+        header = jQuery(".art-header");
+        var otherElement = header.children("*:not(nav.art-nav):first");
+        if (otherElement.length > 0)
+            nav.insertBefore(otherElement);
+    }
+}
+
+
+jQuery(window).bind("responsiveNav", function (event, options) {
+    /*global menuExtendedCreate */
+    'use strict';
+    if (options.isDesktopNav && jQuery("li.ext").length > 0) {
+        menuExtendedCreate();
+    }
+});
 
 jQuery(window).bind("responsive", function (event, responsiveDesign) {
     "use strict";
-
     responsiveLayoutCell(responsiveDesign);
 });
 
-
-
-//setTimeout(function () { $("html").addClass("desktop") }, 0);
-
-if (!browser.ie || browser.version > 8) {
-    jQuery(responsiveDesign.initialize);
-} else {
-    jQuery("html").addClass("desktop");
+function responsiveLayoutCell(responsiveDesign) {
+    "use strict";
+    jQuery(".art-content .art-content-layout-row,.art-footer .art-content-layout-row").each(function () {
+        var row = jQuery(this);
+        var rowChildren = row.children(".art-layout-cell");
+        if (rowChildren.length > 1) {
+            if (responsiveDesign.isTablet) {
+                rowChildren.addClass("responsive-tablet-layout-cell").each(function (i) {
+                    if ((i + 1) % 2 === 0) {
+                        jQuery(this).after("<div class=\"cleared responsive-cleared\">");
+                    }
+                });
+            } else {
+                rowChildren.removeClass("responsive-tablet-layout-cell");
+                row.children(".responsive-cleared").remove();
+            }
+        }
+    });
 }
+
+jQuery(window).bind("responsive", function (event, responsiveDesign) {
+    "use strict";
+    responsiveLayoutCell(responsiveDesign);
+});
+
+function responsiveLayoutCell(responsiveDesign) {
+    "use strict";
+    jQuery(".art-content .art-content-layout-row,.art-footer .art-content-layout-row").each(function () {
+        var row = jQuery(this);
+        var rowChildren = row.children(".art-layout-cell");
+        if (rowChildren.length > 1) {
+            if (responsiveDesign.isTablet) {
+                rowChildren.addClass("responsive-tablet-layout-cell").each(function (i) {
+                    if ((i + 1) % 2 === 0) {
+                        jQuery(this).after("<div class=\"cleared responsive-cleared\">");
+                    }
+                });
+            } else {
+                rowChildren.removeClass("responsive-tablet-layout-cell");
+                row.children(".responsive-cleared").remove();
+            }
+        }
+    });
+}
+
+
+
+jQuery(responsiveDesign.initialize);
