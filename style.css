@@ -2,7 +2,7 @@
 
 #art-main
 {
-   background: #323A31 url('images/page.png') fixed;
+   background: #1C1C1C url('images/page.png') fixed;
    margin:0 auto;
    font-size: 13px;
    font-family: Tahoma, Arial, Helvetica, Sans-Serif;
@@ -408,7 +408,25 @@ li p, .art-postcontent li p, .art-blockcontent li p
    margin-right: 0 !important;
 }
 
-.art-object777328212
+.art-object2016862673
+{
+    display: block;
+    left: 0%;
+    margin-left: -90px;
+    position: absolute;
+    top: -76px;
+    width: 1081px;
+    height: 353px;
+    background-image: url('images/object2016862673.png');
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    z-index: 2;
+}
+
+.default-responsive .art-object2016862673
+{
+  display: none;
+}.art-object777328212
 {
     display: block;
     left: 45.25%;
@@ -420,7 +438,7 @@ li p, .art-postcontent li p, .art-blockcontent li p
     background-image: url('images/object777328212.png');
     background-position: 0 0;
     background-repeat: no-repeat;
-    z-index: 2;
+    z-index: 3;
 }
 
 .default-responsive .art-object777328212
@@ -459,7 +477,7 @@ text-transform: uppercase;
 text-align: left;
   padding: 0;
   margin: 0;
-  color: #DCD8CB !important;
+  color: #E0DCD1 !important;
   white-space: nowrap;
 }
 
@@ -698,7 +716,7 @@ ul.art-hmenu>li>a:hover, .desktop ul.art-hmenu>li:hover>a
 }
 ul.art-hmenu>li>a:hover, 
 .desktop ul.art-hmenu>li:hover>a {
-   color: #F1EFEA;
+   color: #EDEAE3;
    text-decoration: none;
 }
 ul.art-hmenu>li>a.active:hover {
@@ -2702,7 +2720,7 @@ blockquote p,
    font-style: normal;
    font-weight: normal;
    text-decoration: underline;
-   color: #FCCC78;
+   color: #FCC464;
 }
 
 .art-page-footer
@@ -2712,7 +2730,7 @@ blockquote p,
    padding: 1em;
    text-align: center !important;
    text-decoration: none;
-   color: #C8C1AC;
+   color: #C0B7A0;
 }
 
 .art-lightbox-wrapper 

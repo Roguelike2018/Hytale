@@ -1244,6 +1244,22 @@ if (typeof window.resizeData === 'undefined') window.resizeData = {};
 window.resizeData.headerPageWidth = true;
 if (typeof window.defaultResponsiveData === 'undefined') window.defaultResponsiveData = [false, true, true, true, true, ];
 
+resizeData['object2016862673'] = {
+   responsive: [
+                  { left: -0.08, top: -0.22, visible: true }, 
+                  { left: -0.08, top: -0.22, visible: true }, 
+                  { left: -0.08, top: -0.22, visible: true }, 
+                  { left: -0.08, top: -0.22, visible: true }, 
+                  { left: -0.08, top: -0.22, visible: true }, 
+               ],
+   area: {
+       x: 0,
+       y: 0
+   },
+   width: 1081,
+   height: 353,
+   autoWidth: false};
+
 resizeData['object777328212'] = {
    responsive: [
                   { left: 0.45, top: 0.32, visible: true }, 
