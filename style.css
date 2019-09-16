@@ -109,7 +109,7 @@ ul.art-vmenu a
 {
    font-family: 'Droid Sans', Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
    text-decoration: none;
-   color: #E2CB6E;
+   color: #E2CA6A;
 }
 
 .art-postcontent a:visited, .art-postcontent a.visited
@@ -123,12 +123,12 @@ ul.art-vmenu a
 {
    font-family: 'Droid Sans', Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
    text-decoration: underline;
-   color: #BB9D25;
+   color: #B79A24;
 }
 
 .art-postcontent h1
 {
-   color: #BB9D25;
+   color: #B79A24;
    margin: 10px 0 0;
    font-size: 26px;
    font-family: 'Droid Sans', Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
@@ -155,7 +155,7 @@ ul.art-vmenu a
 
 .art-postcontent h2
 {
-   color: #DC8D04;
+   color: #D78A04;
    margin: 10px 0 0;
    font-size: 22px;
    font-family: 'Droid Sans', Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
@@ -263,7 +263,7 @@ ul.art-vmenu a
 
 .art-postcontent h6
 {
-   color: #FCBE55;
+   color: #FBBD50;
    margin: 10px 0 0;
    font-size: 13px;
    font-family: 'Droid Sans', Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
@@ -323,7 +323,7 @@ body
    padding: 0;
    margin:0;
    min-width: 1050px;
-   color: #B4A98E;
+   color: #B1A78B;
 }
 
 .clearfix:before, .clearfix:after {
@@ -1625,11 +1625,10 @@ label.art-radiobutton.hovered:before
 .art-post
 {
    background: #312D21;
-   background: rgba(49, 45, 33, 0.2);
-   -webkit-box-shadow:0 0 2px 1px rgba(0, 0, 0, 0.02);
-   -moz-box-shadow:0 0 2px 1px rgba(0, 0, 0, 0.02);
-   box-shadow:0 0 2px 1px rgba(0, 0, 0, 0.02);
-   border:1px solid #776D50;
+   background: rgba(49, 45, 33, 0.9);
+   -webkit-border-radius:4px;
+   -moz-border-radius:4px;
+   border-radius:4px;
    padding:5px;
    margin:3px;
 }
@@ -1641,7 +1640,7 @@ a img
 .art-article img, img.art-article, .art-block img, .art-footer img
 {
    border: 1px solid #776D50;
-   margin: 7px 7px 7px 7px;
+   margin: 5px 5px 5px 5px;
 }
 
 .art-metadata-icons img
@@ -1692,7 +1691,7 @@ pre
 
 .image-caption-wrapper
 {
-   padding: 7px 7px 7px 7px;
+   padding: 5px 5px 5px 5px;
    -webkit-box-sizing: border-box;
    -moz-box-sizing: border-box;
    box-sizing: border-box;
@@ -1724,7 +1723,7 @@ pre
 .art-postmetadataheader
 {
    background: #46402F;
-   background: rgba(70, 64, 47, 0.7);
+   background: rgba(70, 64, 47, 0.6);
    border:1px solid #776D50;
    border-left:none;
    border-right:none;
@@ -1732,23 +1731,7 @@ pre
    position:relative;
    z-index:1;
    padding: 1px;
-}
-
-.art-postheadericon:before
-{
-   content:url('images/postheadericon.png');
-   margin-right:6px;
-   bottom: 3px;
-   position:relative;
-   display:inline-block;
-   vertical-align:middle;
-   font-size:0;
-   line-height:0;
-}
-.opera .art-postheadericon:before
-{
-   /* Vertical-align:middle in Opera doesn't need additional offset */
-    bottom: 0;
+   margin-bottom: 5px;
 }
 
 .art-postheader
@@ -1783,7 +1766,7 @@ pre
    font-family: 'Droid Sans', Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
    text-decoration: none;
    text-align: left;
-   color: #D8B93B;
+   color: #D9BA3F;
 }
 
 .art-postheader a:visited, .art-postheader a.visited
@@ -1797,7 +1780,7 @@ pre
 {
    font-family: 'Droid Sans', Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
    text-decoration: underline;
-   color: #C0A126;
+   color: #C4A427;
 }
 
 .art-postheadericons,
@@ -1809,7 +1792,7 @@ pre
    font-size: 11px;
    font-family: 'Droid Sans', Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
    text-align: center;
-   color: #DAD5C8;
+   color: #D8D3C5;
 }
 
 .art-postheadericons
@@ -1824,7 +1807,7 @@ pre
    font-weight: normal;
    font-style: italic;
    text-decoration: none;
-   color: #C6BEA9;
+   color: #C4BCA6;
 }
 
 .art-postheadericons a:visited, .art-postheadericons a.visited
@@ -1833,7 +1816,7 @@ pre
    font-weight: normal;
    font-style: italic;
    text-decoration: none;
-   color: #C6BEA9;
+   color: #C4BCA6;
 }
 
 .art-postheadericons a:hover, .art-postheadericons a.hover
@@ -1842,7 +1825,7 @@ pre
    font-weight: normal;
    font-style: italic;
    text-decoration: underline;
-   color: #FAA614;
+   color: #FAA40F;
 }
 
 .art-postdateicon:before
@@ -1900,12 +1883,12 @@ pre
 {
    content:url('images/postemailicon.png');
    margin-right:6px;
-   bottom: 1px;
    position:relative;
    display:inline-block;
    vertical-align:middle;
    font-size:0;
    line-height:0;
+   bottom: auto;
 }
 .opera .art-postemailicon:before
 {
@@ -1951,7 +1934,7 @@ pre
 {
    font-family: 'Droid Sans', Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
    text-align: justify;
-   color: #C0B7A0;
+   color: #BEB59D;
    margin: 5px 0 5px 11px;
 }
 
@@ -1962,12 +1945,12 @@ pre
 
 .art-postcontent ul>li, .art-post ul>li, .art-textblock ul>li
 {
-   padding-left: 26px;
+   padding-left: 12px;
 }
 
 .art-postcontent ul>li:before,  .art-post ul>li:before,  .art-textblock ul>li:before
 {
-   margin-left: -26px;
+   margin-left: -12px;
 }
 
 .art-postcontent ol, .art-post ol, .art-textblock ol, .art-postcontent ul, .art-post ul, .art-textblock ul
@@ -2001,7 +1984,7 @@ pre
 blockquote
 {
    background: #46402F url('images/postquote.png') no-repeat scroll;
-   padding:12px 12px 12px 45px;
+   padding:12px 12px 12px 35px;
    margin:0 0 0 20px;
    color: #BCB39A;
    font-family: 'Droid Sans', Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
