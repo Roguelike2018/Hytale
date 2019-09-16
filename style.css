@@ -77,6 +77,7 @@ ul.art-vmenu a
 .art-postcontent a.hovered
 {
    font-family: 'Droid Sans', Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
+   text-align: left;
 }
 
 .art-postcontent p
