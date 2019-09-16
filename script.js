@@ -335,7 +335,7 @@ function menuExtendedCreate() {
             var lnk = itm.children("a");
             var lnkWidth = lnk.outerWidth();
             itm.css("width", Math.round(parseFloat(lnkWidth, 10)) + "px");
-            var menubarMargin = 4 * 2; // margin * 2 sides
+            var menubarMargin = 5 * 2; // margin * 2 sides
             var menubarBorder = 0 * 2; // border 1 side
             var submWidth = subm.width() + shadow + menubarMargin + menubarBorder;
             var w = submWidth - lnkWidth;
@@ -387,16 +387,6 @@ jQuery(function ($) {
 
     $(window).trigger('resize');
 });
-
-jQuery(function($) {
-    'use strict';
-    if (!$('html').hasClass('ie7')) {
-        return;
-    }
-    $('ul.art-vmenu li:not(:first-child),ul.art-vmenu li li li:first-child,ul.art-vmenu>li>ul').each(function () { $(this).append('<div class="art-vmenu-separator"> </div><div class="art-vmenu-separator-bg"> </div>'); });
-});
-
-
 
 var artButtonSetup = (function ($) {
     'use strict';

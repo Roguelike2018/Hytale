@@ -26,28 +26,11 @@ ul.art-hmenu, ul.art-hmenu ul {
    zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).className="cleared");
 }
 ul.art-hmenu>li:first-child {
-   padding-right:7px;
-}
-ul.art-hmenu>li{
-   zoom:expression(runtimeStyle.zoom=1,insertBefore(document.createElement('span'),firstChild).className='art-hmenu-separator');
-}
-ul.art-hmenu>li>span.art-hmenu-separator
-{
-   position:absolute;
-   display: block;
-   top:0;
-   left:  -7px;
-   width: 7px;
-   height: 50px;
-   background: url('images/menuseparator.png') center center no-repeat;
-}
-ul.art-hmenu>li:first-child>span.art-hmenu-separator
-{
-   display:none;
+   padding-right:12px;
 }
 
 ul.art-hmenu ul, .desktop-nav ul.art-hmenu>li.ext:hover>a{
-   background-color: rgba(44, 102, 226, 0.9) !important;
+   background-color: rgba(119, 109, 80, 0.8) !important;
 }
 
 .art-content-layout, .art-content-layout-row, .art-layout-cell 
@@ -60,15 +43,6 @@ ul.art-hmenu ul, .desktop-nav ul.art-hmenu>li.ext:hover>a{
    position:relative;
    float: left;
    clear: right;
-}
-
-ul.art-vmenu, ul.art-vmenu ul, ul.art-vmenu li{
-   zoom: 1;
-}
-
-ul.art-vmenu ul 
-{
-   background-color: transparent;
 }
 
 input[type="text"]
