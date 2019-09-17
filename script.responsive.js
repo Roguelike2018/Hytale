@@ -294,14 +294,6 @@ function responsiveNav(responsiveDesign) {
 }
 
 
-jQuery(window).bind("responsiveNav", function (event, options) {
-    /*global menuExtendedCreate */
-    'use strict';
-    if (options.isDesktopNav && jQuery("li.ext").length > 0) {
-        menuExtendedCreate();
-    }
-});
-
 jQuery(window).bind("responsive", function (event, responsiveDesign) {
     "use strict";
     responsiveLayoutCell(responsiveDesign);
